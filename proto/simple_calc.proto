@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package grpc_calc;
+
+import "google/api/annotations.proto";
+
+option go_package = "/grpc_calc";
+
+service CalcPerformer{
+    rpc Calculate(Operation) returns (OperationResult){
+        option (google.api.http) = {
+            get: "/{first}/{operation}/{second}"
+        };
+    }
+}
+
+message Operation{
+    uint64 first = 1;
+    string operation = 2;
+    uint64 second = 3;
+}
+
+message OperationResult{
+    uint64 result = 1;
+    string error = 2;
+}
